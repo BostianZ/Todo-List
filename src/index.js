@@ -1,5 +1,5 @@
-import { Todo } from "./Todo";
 import { TodoList } from "./TodoList";
+import { Projects } from "./Projects";
 
 
 const list = new TodoList("First list");
@@ -11,3 +11,8 @@ console.log(list);
 const listTwo = new TodoList("Second list");
 listTwo.addTodo("number2","number2","number2","number2","number2")
 console.log(listTwo);
+
+let projects = new Projects();
+projects.addTodoList(list);
+projects.addTodoList(listTwo)
+console.log(projects);
