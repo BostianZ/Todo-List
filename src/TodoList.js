@@ -18,6 +18,19 @@ class TodoList {
         return newTodoList;
     }
 
+    editTodo(id) {
+
+    }
+
+    setTodoPriority(id, priority) {
+        //Find todo based on ID
+        //set it's priority
+        let todo = this.todoList.find((todo, index) => index === id);
+        todo.priority = priority;
+        return this.todoList;
+    }
+
+
 }
 
 

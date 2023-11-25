@@ -5,22 +5,7 @@ class Todo {
         this.dueDate = dueDate,
         this.priority = priority,
         this.notes = notes
-    }
-    //Functionality to add, delete, edit todos
-    editTodo(id) {
-
-    }
-
-    todoPriority(id) {
-
-    }
-
-    todoNotes() {
-
-    }
-
-    todoDueDate() {
-
+        this.isComplete = false;
     }
 }
 

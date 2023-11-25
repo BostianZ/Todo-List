@@ -9,6 +9,11 @@ class Projects {
         this.projects.push(todolist)
         return this.projects;
     }
+
+    deleteProject(id) {
+        let newProjectList = this.projects.splice(id, 1);
+        return newProjectList;
+    }
 }
 
 export { Projects }

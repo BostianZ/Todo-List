@@ -10,6 +10,7 @@ list.addTodo("world", "world", "world", "world", "world");
 console.log(list);
 const listTwo = new TodoList("Second list");
 listTwo.addTodo("number2","number2","number2","number2","number2")
+listTwo.setTodoPriority(0, "Important");
 console.log(listTwo);
 
 let projects = new Projects();
