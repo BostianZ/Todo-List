@@ -29,6 +29,13 @@ class TodoList {
         todo.priority = priority;
         return this.todoList;
     }
+    setDueDate(id, date) {
+        let todo = this.todoList.find((todo, index) => index === id);
+        todo.dueDate = date;
+        return this.todoList;
+    }
+
+
 
 
 }

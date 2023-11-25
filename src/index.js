@@ -11,6 +11,7 @@ console.log(list);
 const listTwo = new TodoList("Second list");
 listTwo.addTodo("number2","number2","number2","number2","number2")
 listTwo.setTodoPriority(0, "Important");
+listTwo.setDueDate(0, Date.now());
 console.log(listTwo);
 
 let projects = new Projects();
