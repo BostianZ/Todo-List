@@ -3,18 +3,19 @@ import { Todo } from "./Todo";
 class TodoList {
     constructor(title) {
         this.title = title,
-        this.todoList = [];
+        this.todos = [];
+        this.id;
     }
 
     addTodo(...todo) {
         let newTodo = new Todo(...todo);
-        this.todoList.push(newTodo);
-        console.log(this.todoList)
-        return this.todoList;
+        this.todos.push(newTodo);
+        console.log(this.todos)
+        return this.todos;
     }
 
     deleteTodo(id) {
-        let newTodoList = this.todoList.splice(id, 1);
+        let newTodoList = this.todos.splice(id, 1);
         return newTodoList;
     }
 
@@ -25,14 +26,14 @@ class TodoList {
     setTodoPriority(id, priority) {
         //Find todo based on ID
         //set it's priority
-        let todo = this.todoList.find((todo, index) => index === id);
+        let todo = this.todos.find((todo, index) => index === id);
         todo.priority = priority;
-        return this.todoList;
+        return this.todos;
     }
-    setDueDate(id, date) {
-        let todo = this.todoList.find((todo, index) => index === id);
+    setDueDate(id, date = new Date().toISOString()) {
+        let todo = this.todos.find((todo, index) => index === id);
         todo.dueDate = date;
-        return this.todoList;
+        return this.todos;
     }
 
 

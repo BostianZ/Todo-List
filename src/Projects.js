@@ -1,7 +1,7 @@
-import { TodoList } from "./TodoList";
 
 class Projects {
     constructor() {
+        //Contains list of todo lists.
         this.projects = [];
     }
 
@@ -10,7 +10,7 @@ class Projects {
         return this.projects;
     }
 
-    deleteProject(id) {
+    deleteTodoList(id) {
         let newProjectList = this.projects.splice(id, 1);
         return newProjectList;
     }
