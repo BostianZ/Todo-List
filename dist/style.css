@@ -85,7 +85,9 @@ body {
 .todo-list-add-todo {
     align-self: center;
     padding: 8px;
-    box-shadow: 0px -5px 7px 0px rgba(0,0,0,0.13);
+    box-shadow: 0px -5px 7px 0px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 8px;
 }
 
 .todo-list-add-todo input{
@@ -98,6 +100,10 @@ body {
 
 .todo-list-add-todo input:focus {
     outline: 1px solid var(--main-color)
+}
+
+.todo-list-add-todo svg {
+    width: 30px;
 }
 
 
