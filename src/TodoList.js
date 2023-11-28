@@ -19,8 +19,10 @@ class TodoList {
         return newTodoList;
     }
 
-    editTodo(id) {
-
+    editTodo(id, title) {
+        let todo = this.todos.find((todo, index) => index === id);
+        todo.title = title;
+        return this.todos;
     }
 
     setTodoPriority(id, priority) {
@@ -30,11 +32,13 @@ class TodoList {
         todo.priority = priority;
         return this.todos;
     }
+
     setDueDate(id, date = new Date().toISOString()) {
         let todo = this.todos.find((todo, index) => index === id);
         todo.dueDate = date;
         return this.todos;
     }
+
 
 
 
