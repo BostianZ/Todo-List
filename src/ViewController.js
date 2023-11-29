@@ -11,14 +11,24 @@ function ViewController() {
 
     const renderProjects = () => {
         const projectsDiv = document.querySelector(".projects");
-        for (let i = 0; i < projects.length; i++) {
+        projectsDiv.innerHTML = "";
+        let projects = projectsData.forEach((project, index) => {
             let divEl = document.createElement("div");
-            divEl.textContent = projects[i];
+            divEl.textContent = project.title;
+            divEl.setAttribute("id", `${index}`);
             projectsDiv.appendChild(divEl)
-        }
-        console.log(projectsData);
-        
+        })
+        return projects;
     }
+
+    // const renderProject = (val) => {
+    //     console.log("VAL", val);
+    //     const projectsDiv = document.querySelector(".projects");
+    //     let divEl = document.createElement("div");
+    //     divEl.classList.add("project");
+    //     divEl.textContent = val;
+    //     projectsDiv.appendChild(divEl)
+    // }
 
     const projectsAddEl = document.querySelector("#projects-add");
     const projectsTitleForm = document.querySelector(".form");
@@ -35,17 +45,12 @@ function ViewController() {
         console.log(projectsTitleInput.value)
         
         projects.addTodoList(projectsTitleInput.value);
+
+        renderProjects();
         projectsTitleForm.reset()
         modal.close();
-        renderProjects();
+
     })
-
-    renderProjects();
-
-    return {
-        renderTodos,
-        renderProjects
-    }
 
 }
 
