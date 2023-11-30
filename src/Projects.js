@@ -16,6 +16,10 @@ class Projects {
         return newProjectList;
     }
 
+    getCurrentProject(index) {
+        return this.projects[index]
+    }
+
     getProjects() {
         return this.projects;
     }

@@ -121,6 +121,7 @@ body {
 
 .todo-container {
     padding: 24px;
+    display: none;
 }
 
 .todo-item:hover {
@@ -135,14 +136,6 @@ body {
     height: 60%;
     display: grid;
     grid-template-rows: 60px 60px 1fr;
-}
-
-.todo-item:nth-child(1) {
-    border-right: 4px solid red;
-}
-
-.todo-item:nth-child(2) {
-    border-right: 4px solid yellow;
 }
 
 .user-wrapper {

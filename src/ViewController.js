@@ -3,6 +3,11 @@ import { Projects } from "./Projects";
 function ViewController() {
     let projects = new Projects();
     let projectsData = projects.getProjects();
+
+    const renderProjectLabel = (index) => {
+        const projectLabel = document.querySelector(".todo-list-title-input");
+        projectLabel.placeholder = projectsData[index].title;
+    }
     
 
     const renderTodos = (id) => {
@@ -13,6 +18,7 @@ function ViewController() {
         project.todos.forEach((todo, index) => {
             let divEl = document.createElement("div");
             divEl.setAttribute("id", `${index}`);
+            divEl.classList.add("todo-item");
             divEl.textContent = todo.title;
             todoListEl.appendChild(divEl);
         })
@@ -30,17 +36,28 @@ function ViewController() {
                 selectedProject(index)
              });
             projectsDiv.appendChild(divEl)
+            selectedProject(index);
         })
+
     } 
 
     const selectedProject = (index) => {
         //Check to see if class exists on another node
         //IF so, remove it
         //ADD class to clicked node
-        const projects = Array.from(document.querySelectorAll(".project"));
+        // const projects = Array.from(document.querySelectorAll(".project"));
         const todoListEl = document.querySelector(".todo-list");
         todoListEl.setAttribute("id", `${index}`);
+        renderProjectLabel(index);
         renderTodos(index);
+
+    }
+
+    const selectedTodo = (index) => {
+        const todoEl = document.querySelector(".todo-container");
+        todoEl.display = block;
+        //We need to know what todolist we're on.
+    
 
     }
     
