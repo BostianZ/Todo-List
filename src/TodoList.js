@@ -39,10 +39,6 @@ class TodoList {
         return this.todos;
     }
 
-
-
-
-
 }
 
 

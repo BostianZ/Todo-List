@@ -181,6 +181,12 @@ body {
     background-color: #f3f3f3;
 }
 
+.project-selected {
+    background-color: #f3f3f3;
+    color: var(--main-color);
+    font-weight: 700;
+}
+
 .projects-title {
     font-weight: 700;
     font-size: 24px;
