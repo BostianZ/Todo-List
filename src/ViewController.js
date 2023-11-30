@@ -43,45 +43,46 @@ function ViewController() {
         renderTodos(index);
 
     }
+    
+    function EventsController() {
+        const addTodoEl = document.querySelector(".add-todo-btn");
+        const projectsAddEl = document.querySelector("#projects-add");
+        const projectsTitleForm = document.querySelector(".form");
+        const projectsTitleInput = document.querySelector(".projects-title-input")
+        const modal = document.querySelector("#dialog");
 
-    const projectsAddEl = document.querySelector("#projects-add");
-    const projectsTitleForm = document.querySelector(".form");
-    const projectsTitleInput = document.querySelector(".projects-title-input")
-    const modal = document.querySelector("#dialog");
+        const renderProjectsHandler = (e) => {
+            e.preventDefault();
+            // console.log(projectsTitleInput.value)
+            projects.addTodoList(projectsTitleInput.value);
+            renderProjects();
+            projectsTitleForm.reset()
+            modal.close();
+        }
+    
+        const renderTodosHandler = (e) => {
+            const addTodoInput = document.querySelector(".add-todo-input")
+            const todoListEl = document.querySelector(".todo-list");
+            console.log(todoListEl.id);
+            console.log(projects);
+            let index = todoListEl.id;
+            let todoVal = addTodoInput.value;
+            let todolist = projectsData[index];
+            console.log(todolist);
+            todolist.addTodo(todoVal);
+            renderTodos(index);
+        }
 
+        projectsAddEl.addEventListener("click", (e) => modal.showModal());
 
+        projectsTitleForm.addEventListener("submit", renderProjectsHandler)
+    
+        addTodoEl.addEventListener("click", renderTodosHandler)
+    }
 
-    projectsAddEl.addEventListener("click", function(e) {
-        modal.showModal();
-    })
-
-    projectsTitleForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        console.log(projectsTitleInput.value)
-        
-        projects.addTodoList(projectsTitleInput.value);
-
-        renderProjects();
-        projectsTitleForm.reset()
-        modal.close();
-
-    })
-
-    const addTodoEl = document.querySelector(".add-todo-btn");
-    addTodoEl.addEventListener("click", function(e) {
-        const addTodoInput = document.querySelector(".add-todo-input")
-        const todoListEl = document.querySelector(".todo-list");
-        console.log(todoListEl.id);
-        console.log(projects);
-        let index = todoListEl.id;
-        let todoVal = addTodoInput.value;
-        let todolist = projectsData[index];
-        console.log(todolist);
-        todolist.addTodo(todoVal);
-        renderTodos(index);
-    })
-
+    EventsController();
 }
+
+
 
 export { ViewController }

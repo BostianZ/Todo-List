@@ -21,5 +21,4 @@ import { ViewController } from "./ViewController";
 // projects.addTodoList(listTwo)
 // console.log(projects);
 
-const view = ViewController();
-console.log(view);
+ViewController();
