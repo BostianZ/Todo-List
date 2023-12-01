@@ -33,24 +33,36 @@ function ViewController() {
             divEl.classList.add("project");
             divEl.setAttribute("id", `${index}`);
             divEl.addEventListener("click", function() { 
-                selectedProject(index)
+                renderProject(index);
+                selectedProject(index);
              });
             projectsDiv.appendChild(divEl)
+            renderProject(index);
             selectedProject(index);
         })
-
     } 
 
-    const selectedProject = (index) => {
-        //Check to see if class exists on another node
-        //IF so, remove it
-        //ADD class to clicked node
-        // const projects = Array.from(document.querySelectorAll(".project"));
+    const renderProject = (index) => {
         const todoListEl = document.querySelector(".todo-list");
         todoListEl.setAttribute("id", `${index}`);
         renderProjectLabel(index);
         renderTodos(index);
+    }
 
+    const selectedProject = (index) => {
+        let projects = Array.from(document.querySelectorAll(".project"));
+        //clear class off all elements
+        //then add to selected oone.
+
+        projects.forEach(project => {
+            project.classList.remove("project-selected");
+        })
+
+        projects[index].classList.add("project-selected");
+
+        //If the project clicked has the class dont remove it
+        //If the project clicked doesnt have the class add the class, then remove it from the others that have it
+        
     }
 
     const selectedTodo = (index) => {

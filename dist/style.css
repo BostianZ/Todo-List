@@ -108,15 +108,16 @@ body {
 
 .todo-list {
     font-size: 16px;
-    display: grid;
-    grid-template-rows: repeat(12, 1fr);
+    /* display: grid;
+    grid-template-rows: repeat(12, 1fr); */
     padding: 24px;
 }
 
 .todo-item {
     display: grid;
-    grid-template-columns: 30px 1fr;
+    /* grid-template-columns: 30px 1fr; */
     align-items: center;
+    padding: 16px 0;
 }
 
 .todo-container {
