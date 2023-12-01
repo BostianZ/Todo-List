@@ -3,25 +3,27 @@ import { Projects } from "./Projects";
 function ViewController() {
     let projects = new Projects();
     let projectsData = projects.getProjects();
-
-    const renderProjectLabel = (index) => {
-        const projectLabel = document.querySelector(".todo-list-title-input");
-        projectLabel.placeholder = projectsData[index].title;
-    }
+    const todoListEl = document.querySelector(".todo-list");
     
-
     const renderTodos = (id) => {
-        const todoListEl = document.querySelector(".todo-list");
         console.log("test");
         todoListEl.innerHTML = ""
         let project = projectsData[id];
+        console.log("TODOLIST ID", todoListEl.id);
         project.todos.forEach((todo, index) => {
             let divEl = document.createElement("div");
             divEl.setAttribute("id", `${index}`);
             divEl.classList.add("todo-item");
             divEl.textContent = todo.title;
+            divEl.addEventListener("click", function(e) {
+                selectedTodo(todoListEl.id, index);
+            })
             todoListEl.appendChild(divEl);
         })
+    }
+
+    const getCurrentProjectId = () => {
+
     }
 
     const renderProjects = () => {
@@ -43,34 +45,35 @@ function ViewController() {
     } 
 
     const renderProject = (index) => {
-        const todoListEl = document.querySelector(".todo-list");
         todoListEl.setAttribute("id", `${index}`);
         renderProjectLabel(index);
         renderTodos(index);
     }
 
     const selectedProject = (index) => {
-        let projects = Array.from(document.querySelectorAll(".project"));
-        //clear class off all elements
-        //then add to selected oone.
-
+        let projects = document.querySelectorAll(".project");
         projects.forEach(project => {
             project.classList.remove("project-selected");
         })
-
         projects[index].classList.add("project-selected");
-
-        //If the project clicked has the class dont remove it
-        //If the project clicked doesnt have the class add the class, then remove it from the others that have it
-        
     }
 
-    const selectedTodo = (index) => {
-        const todoEl = document.querySelector(".todo-container");
-        todoEl.display = block;
-        //We need to know what todolist we're on.
-    
+    const renderProjectLabel = (index) => {
+        const projectLabel = document.querySelector(".todo-list-title-input");
+        projectLabel.placeholder = projectsData[index].title;
+    }
 
+    const selectedTodo = (projectIndex, todoIndex) => {
+        const todoEl = document.querySelector(".todo-container");
+        const todoTitleEl = document.querySelector(".todo-title-input");
+        todoEl.style.display = "block";
+        //We need to know what todolist we're on.
+        console.log("PROJECTS", projectsData[projectIndex]);
+        let todos = projectsData[projectIndex].todos;
+        console.log(todos);
+        let todo = todos[todoIndex];
+        console.log(todo);
+        todoTitleEl.placeholder = todo.title;
     }
     
     function EventsController() {
@@ -82,7 +85,6 @@ function ViewController() {
 
         const renderProjectsHandler = (e) => {
             e.preventDefault();
-            // console.log(projectsTitleInput.value)
             projects.addTodoList(projectsTitleInput.value);
             renderProjects();
             projectsTitleForm.reset()
