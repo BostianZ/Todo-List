@@ -5,25 +5,47 @@ function ViewController() {
     let projectsData = projects.getProjects();
     const todoListEl = document.querySelector(".todo-list");
     
-    const renderTodos = (id) => {
-        console.log("test");
+    const renderTodos = (index) => {
         todoListEl.innerHTML = ""
-        let project = projectsData[id];
-        console.log("TODOLIST ID", todoListEl.id);
+        let project = projectsData[index];
         project.todos.forEach((todo, index) => {
             let divEl = document.createElement("div");
             divEl.setAttribute("id", `${index}`);
             divEl.classList.add("todo-item");
             divEl.textContent = todo.title;
             divEl.addEventListener("click", function(e) {
-                selectedTodo(todoListEl.id, index);
+                displayTodo(todoListEl.id, index);
+                selectedTodo(index);
             })
+        
             todoListEl.appendChild(divEl);
         })
     }
 
-    const getCurrentProjectId = () => {
+    const defaultToFirstTodo = (todos, index) => {
+        const todoEl = document.querySelector(".todo-container");
+        if (todos.length === 0) {
+            todoEl.style.display = "none";
+        } else {
+            displayTodo(index, 0);
+        }
+    }
 
+    const displayTodo = (projectIndex, todoIndex) => {
+        const todoEl = document.querySelector(".todo-container");
+        const todoTitleEl = document.querySelector(".todo-title-input");
+        todoEl.style.display = "block";
+        let todos = projectsData[projectIndex].todos;
+        let todo = todos[todoIndex];
+        todoTitleEl.placeholder = todo.title;
+    }
+
+    const selectedTodo = (index) => {
+        const todos = document.querySelectorAll(".todo-item");
+        todos.forEach(todo => {
+            todo.classList.remove("project-selected");
+        })
+        todos[index].classList.add("project-selected");
     }
 
     const renderProjects = () => {
@@ -50,38 +72,32 @@ function ViewController() {
         renderTodos(index);
     }
 
+    const renderProjectLabel = (index) => {
+        const projectLabel = document.querySelector(".todo-list-title-input");
+        projectLabel.placeholder = projectsData[index].title;
+    }
+
     const selectedProject = (index) => {
         let projects = document.querySelectorAll(".project");
         projects.forEach(project => {
             project.classList.remove("project-selected");
         })
         projects[index].classList.add("project-selected");
+        defaultToFirstTodo(projectsData[index].todos, index);
     }
 
-    const renderProjectLabel = (index) => {
-        const projectLabel = document.querySelector(".todo-list-title-input");
-        projectLabel.placeholder = projectsData[index].title;
-    }
+    ///user clicks on new project
+    //Project highlights and displays first todo IF todos length > 0
+    //Else if todos lengh === 0, display nothing.
 
-    const selectedTodo = (projectIndex, todoIndex) => {
-        const todoEl = document.querySelector(".todo-container");
-        const todoTitleEl = document.querySelector(".todo-title-input");
-        todoEl.style.display = "block";
-        //We need to know what todolist we're on.
-        console.log("PROJECTS", projectsData[projectIndex]);
-        let todos = projectsData[projectIndex].todos;
-        console.log(todos);
-        let todo = todos[todoIndex];
-        console.log(todo);
-        todoTitleEl.placeholder = todo.title;
-    }
-    
+
     function EventsController() {
         const addTodoEl = document.querySelector(".add-todo-btn");
         const projectsAddEl = document.querySelector("#projects-add");
         const projectsTitleForm = document.querySelector(".form");
         const projectsTitleInput = document.querySelector(".projects-title-input")
         const modal = document.querySelector("#dialog");
+        const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
 
         const renderProjectsHandler = (e) => {
             e.preventDefault();
@@ -94,15 +110,18 @@ function ViewController() {
         const renderTodosHandler = (e) => {
             const addTodoInput = document.querySelector(".add-todo-input")
             const todoListEl = document.querySelector(".todo-list");
-            console.log(todoListEl.id);
-            console.log(projects);
             let index = todoListEl.id;
             let todoVal = addTodoInput.value;
             let todolist = projectsData[index];
-            console.log(todolist);
             todolist.addTodo(todoVal);
             renderTodos(index);
         }
+
+        const deleteProject = (e) => {
+            console.log("TEST");
+        }
+
+        projectDeleteBtn.addEventListener("click", deleteProject);
 
         projectsAddEl.addEventListener("click", (e) => modal.showModal());
 
