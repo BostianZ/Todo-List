@@ -17,7 +17,7 @@ class Projects {
     }
 
     getCurrentProject(index) {
-        return this.projects[index]
+        return this.projects[index];
     }
 
     getProjects() {

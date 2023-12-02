@@ -26,8 +26,8 @@ class TodoList {
     }
 
     setTodoPriority(id, priority) {
-        //Find todo based on ID
-        //set it's priority
+        id = parseInt(id);
+        console.log(id, priority, this.todos);
         let todo = this.todos.find((todo, index) => index === id);
         todo.priority = priority;
         return this.todos;
@@ -37,6 +37,10 @@ class TodoList {
         let todo = this.todos.find((todo, index) => index === id);
         todo.dueDate = date;
         return this.todos;
+    }
+
+    getCurrentTodo(index) {
+        return this.todos[index];
     }
 
 }
