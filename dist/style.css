@@ -210,6 +210,14 @@ body {
     background-color: #f3f3f3;
 }
 
+.add-todo-btn {
+    color: var(--main-color);
+    border: none;
+    background-color: white;
+    font-size: 24px;
+    font-weight: 700;
+}
+
 .notes textarea {
     width: 100%;
     border: none;
