@@ -98,6 +98,7 @@ function ViewController() {
         const projectsTitleInput = document.querySelector(".projects-title-input")
         const modal = document.querySelector("#dialog");
         const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
+        const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
 
         const renderProjectsHandler = (e) => {
             e.preventDefault();
@@ -119,11 +120,15 @@ function ViewController() {
 
         const deleteProject = (e) => {
             console.log("TEST");
+            //deleting project also deletes all todo's in the project
+            //can make the delete button id the same as the current project selected
         }
 
         projectDeleteBtn.addEventListener("click", deleteProject);
 
         projectsAddEl.addEventListener("click", (e) => modal.showModal());
+
+        cancelProjectDialogBox.addEventListener("click", (e) => modal.close());
 
         projectsTitleForm.addEventListener("submit", renderProjectsHandler)
     

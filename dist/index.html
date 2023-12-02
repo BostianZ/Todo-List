@@ -23,9 +23,13 @@
                 <div class="project">Groceries</div>
                 <div class="project">Work</div> -->
             </div>
-            <dialog id="dialog">
+            <dialog id="dialog" autofocus>
                 <form method="dialog" class="form">
-                    <input type="text" placeholder="Add a project title" class="projects-title-input"/>
+                    <input type="text" placeholder="Add a project title" class="projects-title-input" required/>
+                    <div class="project-form-btn-wrapper">
+                        <button class="project-form-add-btn">Add</button>
+                    <button class="project-form-cancel-btn">Cancel</button>
+                    </div>
                 </form>
             </dialog>
         </div>
