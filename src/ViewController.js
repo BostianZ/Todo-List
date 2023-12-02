@@ -4,17 +4,18 @@ function ViewController() {
     let projects = new Projects();
     let projectsData = projects.getProjects();
     const todoListEl = document.querySelector(".todo-list");
+    const todoContainerEl = document.querySelector(".todo-container");
     
-    const renderTodos = (index) => {
+    const renderTodos = (projectIndex) => {
         todoListEl.innerHTML = ""
-        let project = projectsData[index];
+        let project = projectsData[projectIndex];
         project.todos.forEach((todo, index) => {
             let divEl = document.createElement("div");
             let deleteTodoEl = document.createElement("button");
             deleteTodoEl.textContent = "X";
             deleteTodoEl.setAttribute("id", `${index}`);
             deleteTodoEl.addEventListener("click", function(e) {
-                deleteTodohandler(e, index);
+                deleteTodohandler(e, projectIndex);
             })
             divEl.setAttribute("id", `${index}`);
             divEl.classList.add("todo-item");
@@ -24,8 +25,8 @@ function ViewController() {
                 displayTodoInfo(todoListEl.id, index);
                 selectedTodo(index);
             })
-            divEl.appendChild(deleteTodoEl);
             todoListEl.appendChild(divEl);
+            todoListEl.appendChild(deleteTodoEl);
         })
     }
 
@@ -39,7 +40,6 @@ function ViewController() {
     }
 
     const displayTodoInfo = (projectIndex, todoIndex) => {
-        const todoContainerEl = document.querySelector(".todo-container");
         const todoTitleEl = document.querySelector(".todo-title-input");
         const todoEl = document.querySelector(".todo")
         todoEl.setAttribute("id", `${todoIndex}`);
@@ -47,6 +47,10 @@ function ViewController() {
         let todos = projectsData[projectIndex].todos;
         let todo = todos[todoIndex];
         todoTitleEl.placeholder = todo.title;
+    }
+
+    const hideTodoInfo = () => {
+        todoContainerEl.style.display = "none";
     }
 
     const selectedTodo = (index) => {
@@ -65,10 +69,11 @@ function ViewController() {
         console.log(projectIndex);
         console.log(project);
         project.deleteTodo(todoIndex);
+        // if (project.todos.length === 0) {
+        //     hideTodoInfo();
+        // }
+        hideTodoInfo();
         renderTodos(projectIndex);
-        
-        //re-render todos list 
-
     }   
 
     const renderProjects = () => {
