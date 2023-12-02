@@ -10,25 +10,23 @@ function ViewController() {
         let project = projectsData[index];
         project.todos.forEach((todo, index) => {
             let divEl = document.createElement("div");
+            let deleteTodoEl = document.createElement("button");
+            deleteTodoEl.textContent = "X";
+            deleteTodoEl.setAttribute("id", `${index}`);
+            deleteTodoEl.addEventListener("click", function(e) {
+                deleteTodohandler(e, index);
+            })
             divEl.setAttribute("id", `${index}`);
             divEl.classList.add("todo-item");
             divEl.textContent = todo.title;
             renderPriority(todo, divEl);
             divEl.addEventListener("click", function(e) {
-                displayTodo(todoListEl.id, index);
+                displayTodoInfo(todoListEl.id, index);
                 selectedTodo(index);
             })
-        
+            divEl.appendChild(deleteTodoEl);
             todoListEl.appendChild(divEl);
         })
-    }
-
-    const renderPriority = (todo, el) => {
-        if (todo.priority === "urgent") {
-            el.classList.add("urgent");
-        } else if (todo.priority === "important") {
-            el.classList.add("important");
-        }
     }
 
     const defaultToFirstTodo = (todos, index) => {
@@ -36,11 +34,11 @@ function ViewController() {
         if (todos.length === 0) {
             todoContainerEl.style.display = "none";
         } else {
-            displayTodo(index, 0);
+            displayTodoInfo(index, 0);
         }
     }
 
-    const displayTodo = (projectIndex, todoIndex) => {
+    const displayTodoInfo = (projectIndex, todoIndex) => {
         const todoContainerEl = document.querySelector(".todo-container");
         const todoTitleEl = document.querySelector(".todo-title-input");
         const todoEl = document.querySelector(".todo")
@@ -58,6 +56,20 @@ function ViewController() {
         })
         todos[index].classList.add("project-selected");
     }
+
+    const deleteTodohandler = (e, projectIndex) => {
+        //Project index and todo index
+        console.log(e.target.id);
+        let todoIndex = e.target.id
+        let project = projectsData[projectIndex];
+        console.log(projectIndex);
+        console.log(project);
+        project.deleteTodo(todoIndex);
+        renderTodos(projectIndex);
+        
+        //re-render todos list 
+
+    }   
 
     const renderProjects = () => {
         const projectsDiv = document.querySelector(".projects");
@@ -97,10 +109,15 @@ function ViewController() {
         defaultToFirstTodo(projectsData[index].todos, index);
     }
 
-    ///user clicks on new project
-    //Project highlights and displays first todo IF todos length > 0
-    //Else if todos lengh === 0, display nothing.
-
+    const renderPriority = (todo, el) => {
+        // const urgentBtn = document.querySelector("#urgent");
+        // const importantBtn = document.querySelector("#important");
+        if (todo.priority === "urgent") {
+            el.classList.add("urgent");
+        } else if (todo.priority === "important") {
+            el.classList.add("important");
+        }
+    }
 
     function EventsController() {
         const addTodoEl = document.querySelector(".add-todo-btn");
@@ -133,25 +150,23 @@ function ViewController() {
             addTodoInput.value = "";
         }
 
-        const deleteProject = (e) => {
+        const deleteProjectHandler = () => {
             console.log("TEST");
-            //deleting project also deletes all todo's in the project
-            //can make the delete button id the same as the current project selected
+            //Get current project
+            
+            //Is this project currently selected?
+            //IF SO DELETE
+            //RE RENDER ProJECTS
         }
 
-        const updatePriority = (projectIndex, todoIndex, priority) => {
-            //Find what project
-            console.log(projects);
-            debugger;
+        const updatePriorityHandler = (projectIndex, todoIndex, priority) => {
             let currentProject = projects.getCurrentProject(projectIndex)
-            console.log(currentProject);
-            //Find the todo
             currentProject.setTodoPriority(todoIndex, priority);
             renderTodos(projectIndex);
         }
 
 
-        projectDeleteBtn.addEventListener("click", deleteProject);
+        projectDeleteBtn.addEventListener("click", (e) => deleteProjectHandler());
 
         projectsAddEl.addEventListener("click", (e) => modal.showModal());
 
@@ -161,8 +176,8 @@ function ViewController() {
     
         addTodoEl.addEventListener("click", renderTodosHandler)
 
-        urgentBtn.addEventListener("click", (e) => updatePriority(todoListEl.id, todoEl.id, "urgent"))
-        importantBtn.addEventListener("click", (e) => updatePriority(todoListEl.id, todoEl.id, "important"))
+        urgentBtn.addEventListener("click", (e) => updatePriorityHandler(todoListEl.id, todoEl.id, "urgent"))
+        importantBtn.addEventListener("click", (e) => updatePriorityHandler(todoListEl.id, todoEl.id, "important"))
     }
 
     EventsController();
