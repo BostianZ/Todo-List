@@ -12,6 +12,7 @@ function ViewController() {
         todoListEl.innerHTML = ""
         let project = projectsData[projectIndex];
         project.todos.forEach((todo, index) => {
+            let todoWrapperEl = document.createElement("div");
             let divEl = document.createElement("div");
             let deleteTodoEl = document.createElement("button");
             deleteTodoEl.textContent = "X";
@@ -19,16 +20,18 @@ function ViewController() {
             deleteTodoEl.addEventListener("click", function(e) {
                 deleteTodohandler(e, projectIndex);
             })
-            divEl.setAttribute("id", `${index}`);
-            divEl.classList.add("todo-item");
+            // divEl.setAttribute("id", `${index}`);
+            todoWrapperEl.setAttribute("id", `${index}`);
+            todoWrapperEl.classList.add("todo-item");
             divEl.textContent = todo.title;
             renderPriority(todo, divEl);
             divEl.addEventListener("click", function(e) {
                 displayTodoInfo(todoListEl.id, index);
                 selectedTodo(index);
             })
-            todoListEl.appendChild(divEl);
-            todoListEl.appendChild(deleteTodoEl);
+            todoWrapperEl.appendChild(divEl);
+            todoWrapperEl.appendChild(deleteTodoEl)
+            todoListEl.appendChild(todoWrapperEl);
         })
     }
 
@@ -117,7 +120,6 @@ function ViewController() {
     }
 
     const renderPriority = (todo, el) => {
-        //Want to make these into toggles.
         const urgentBtn = document.querySelector("#urgent");
         const importantBtn = document.querySelector("#important");
         if (todo.priority === "urgent") {
