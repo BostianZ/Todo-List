@@ -115,23 +115,20 @@ function ViewController() {
     }
 
     const renderPriority = (todo, el) => {
-
-        //If the priority is urgent we add selected class
-        //If user changes to important, we re-add urgent class and add selected to important class
-
-        const urgentBtn = document.querySelector(".urgent");
-        const importantBtn = document.querySelector(".important");
+        //Want to make these into toggles.
+        const urgentBtn = document.querySelector("#urgent");
+        const importantBtn = document.querySelector("#important");
         if (todo.priority === "urgent") {
             el.classList.add("urgent-border");
-            urgentBtn.classList.add("priority-btn-selected")
-            if (importantBtn.classList.contains("priority-btn-selected")) {
-                importantBtn.classList.remove("priority-btn-selected");
+            urgentBtn.classList.add("urgent")
+            if (importantBtn.classList.contains("important")) {
+                importantBtn.classList.remove("important");
             }
         } else if (todo.priority === "important") {
             el.classList.add("important-border");
-             importantBtn.classList.add("priority-btn-selected")
-             if (urgentBtn.classList.contains("priority-btn-selected")) {
-                urgentBtn.classList.remove("priority-btn-selected");
+            importantBtn.classList.add("important")
+            if (urgentBtn.classList.contains("urgent")) {
+                urgentBtn.classList.remove("urgent");
             }
         }
     }
@@ -144,9 +141,10 @@ function ViewController() {
         const modal = document.querySelector("#dialog");
         const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
-        const urgentBtn = document.querySelector(".urgent");
-        const importantBtn = document.querySelector(".important");
+        const urgentBtn = document.querySelector("#urgent");
+        const importantBtn = document.querySelector("#important");
         const todoEl = document.querySelector(".todo");
+        const clearPriorityEl = document.querySelector("clear-priority");
 
         const renderProjectsHandler = (e) => {
             e.preventDefault();
@@ -180,6 +178,10 @@ function ViewController() {
             let currentProject = projects.getCurrentProject(projectIndex)
             currentProject.setTodoPriority(todoIndex, priority);
             renderTodos(projectIndex);
+        }
+
+        const clearProrityhandler = () => {
+            
         }
 
 
