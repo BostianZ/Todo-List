@@ -260,25 +260,25 @@ body {
     padding: 6px 12px;
 }
 
-#urgent,
-#important {
+.urgent,
+.important {
     color: white;
     font-weight: 700;
 }
 
-#urgent {
+.urgent {
     background-color: rgba(255, 0, 0, 0.8);
 }
 
-#important {
+.important {
     background-color: rgb(226, 226, 19, 0.9);
 }
 
-.urgent {
+.urgent-border {
     border-right: 4px solid red;
 }
 
-.important {
+.important-border {
     border-right: 4px solid yellow;
 }
 
@@ -329,4 +329,10 @@ dialog input {
 
 .project-form-btn-wrapper {
     margin-top: 16px;
+}
+
+.priority-btn-selected {
+    background-color: white;    
+    border: 1px solid gray;
+    color: gray;
 }

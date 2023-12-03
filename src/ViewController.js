@@ -115,12 +115,24 @@ function ViewController() {
     }
 
     const renderPriority = (todo, el) => {
-        // const urgentBtn = document.querySelector("#urgent");
-        // const importantBtn = document.querySelector("#important");
+
+        //If the priority is urgent we add selected class
+        //If user changes to important, we re-add urgent class and add selected to important class
+
+        const urgentBtn = document.querySelector(".urgent");
+        const importantBtn = document.querySelector(".important");
         if (todo.priority === "urgent") {
-            el.classList.add("urgent");
+            el.classList.add("urgent-border");
+            urgentBtn.classList.add("priority-btn-selected")
+            if (importantBtn.classList.contains("priority-btn-selected")) {
+                importantBtn.classList.remove("priority-btn-selected");
+            }
         } else if (todo.priority === "important") {
-            el.classList.add("important");
+            el.classList.add("important-border");
+             importantBtn.classList.add("priority-btn-selected")
+             if (urgentBtn.classList.contains("priority-btn-selected")) {
+                urgentBtn.classList.remove("priority-btn-selected");
+            }
         }
     }
 
@@ -132,8 +144,8 @@ function ViewController() {
         const modal = document.querySelector("#dialog");
         const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
-        const urgentBtn = document.querySelector("#urgent");
-        const importantBtn = document.querySelector("#important");
+        const urgentBtn = document.querySelector(".urgent");
+        const importantBtn = document.querySelector(".important");
         const todoEl = document.querySelector(".todo");
 
         const renderProjectsHandler = (e) => {
