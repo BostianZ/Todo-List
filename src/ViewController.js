@@ -5,6 +5,8 @@ function ViewController() {
     let projectsData = projects.getProjects();
     const todoListEl = document.querySelector(".todo-list");
     const todoContainerEl = document.querySelector(".todo-container");
+    const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
+    const projectLabel = document.querySelector(".todo-list-title-input");
     
     const renderTodos = (projectIndex) => {
         todoListEl.innerHTML = ""
@@ -101,8 +103,8 @@ function ViewController() {
     }
 
     const renderProjectLabel = (index) => {
-        const projectLabel = document.querySelector(".todo-list-title-input");
         projectLabel.placeholder = projectsData[index].title;
+        projectDeleteBtn.setAttribute("id", `${index}`);
     }
 
     const selectedProject = (index) => {
@@ -139,7 +141,6 @@ function ViewController() {
         const projectsTitleForm = document.querySelector(".form");
         const projectsTitleInput = document.querySelector(".projects-title-input")
         const modal = document.querySelector("#dialog");
-        const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
         const urgentBtn = document.querySelector("#urgent");
         const importantBtn = document.querySelector("#important");
@@ -165,10 +166,13 @@ function ViewController() {
             addTodoInput.value = "";
         }
 
-        const deleteProjectHandler = () => {
+        const deleteProjectHandler = (index) => {
             console.log("TEST");
+            console.log(index)
             //Get current project
-            
+            projects.deleteTodoList(index);
+            projectLabel.placeholder = "";
+            renderProjects();
             //Is this project currently selected?
             //IF SO DELETE
             //RE RENDER ProJECTS
@@ -180,12 +184,12 @@ function ViewController() {
             renderTodos(projectIndex);
         }
 
-        const clearProrityhandler = () => {
-            
-        }
+        // const clearProrityhandler = (projectIndex, todoIndex) => {
+        //     let currentProject = projects.getCurrentProject(projectIndex)
+        // }
 
 
-        projectDeleteBtn.addEventListener("click", (e) => deleteProjectHandler());
+        projectDeleteBtn.addEventListener("click", (e) => deleteProjectHandler(e.target.id));
 
         projectsAddEl.addEventListener("click", (e) => modal.showModal());
 
