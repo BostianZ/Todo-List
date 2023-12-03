@@ -173,6 +173,7 @@ function ViewController() {
             projects.deleteTodoList(index);
             projectLabel.placeholder = "";
             renderProjects();
+            renderTodos(index);
             //Is this project currently selected?
             //IF SO DELETE
             //RE RENDER ProJECTS
