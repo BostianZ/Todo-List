@@ -7,7 +7,7 @@ function ViewController() {
     const todoContainerEl = document.querySelector(".todo-container");
     const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
     const projectLabel = document.querySelector(".todo-list-title-input");
-    
+
     const renderTodos = (projectIndex) => {
         todoListEl.innerHTML = ""
         let project = projectsData[projectIndex];
@@ -17,7 +17,7 @@ function ViewController() {
             let deleteTodoEl = document.createElement("button");
             deleteTodoEl.textContent = "X";
             deleteTodoEl.setAttribute("id", `${index}`);
-            deleteTodoEl.addEventListener("click", function(e) {
+            deleteTodoEl.addEventListener("click", function (e) {
                 deleteTodohandler(e, projectIndex);
             })
             // divEl.setAttribute("id", `${index}`);
@@ -25,8 +25,9 @@ function ViewController() {
             todoWrapperEl.classList.add("todo-item");
             divEl.textContent = todo.title;
             renderPriority(todo, divEl);
-            divEl.addEventListener("click", function(e) {
-                displayTodoInfo(todoListEl.id, index);
+            divEl.addEventListener("click", function (e) {
+                // displayTodoInfo(todoListEl.id, index);
+                renderTodoDisplay(todoListEl.id, index);
                 selectedTodo(index);
             })
             todoWrapperEl.appendChild(divEl);
@@ -35,14 +36,14 @@ function ViewController() {
         })
     }
 
-    const defaultToFirstTodo = (todos, index) => {
-        const todoContainerEl = document.querySelector(".todo-container");
-        if (todos.length === 0) {
-            todoContainerEl.style.display = "none";
-        } else {
-            displayTodoInfo(index, 0);
-        }
-    }
+    // const defaultToFirstTodo = (todos, index) => {
+    //     const todoContainerEl = document.querySelector(".todo-container");
+    //     if (todos.length === 0) {
+    //         todoContainerEl.style.display = "none";
+    //     } else {
+    //         displayTodoInfo(index, 0);
+    //     }
+    // }
 
     const displayTodoInfo = (projectIndex, todoIndex) => {
         const todoTitleEl = document.querySelector(".todo-title-input");
@@ -52,6 +53,28 @@ function ViewController() {
         let todos = projectsData[projectIndex].todos;
         let todo = todos[todoIndex];
         todoTitleEl.placeholder = todo.title;
+    }
+
+    const renderTodoDisplay = (projectIndex, todoIndex) => {
+        let todos = projectsData[projectIndex].todos;
+        let todo = todos[todoIndex];
+        todoContainerEl.setAttribute("id", `${projectIndex}`);
+        todoContainerEl.style.display = "block";
+        todoContainerEl.innerHTML = `
+            <div class="todo" id=${todoIndex}>
+                <div class="todo-title">
+                    <input type="text" placeholder=${todo.title} class="todo-title-input" />
+                </div>
+                <div class="priority" id=${todo.priority}>
+                    <button class="clear-priority">Clear</button>
+                    <button id="urgent" class="priority-btn">Urgent</button>
+                    <button id="important" class="priority-btn">Important</button>
+                </div>
+                <div class="notes">
+                    <p>NOTES</p>
+                    <textarea rows="5">${todo.notes}</textarea>
+                </div>
+            </div> `
     }
 
     const hideTodoInfo = () => {
@@ -74,12 +97,9 @@ function ViewController() {
         console.log(projectIndex);
         console.log(project);
         project.deleteTodo(todoIndex);
-        // if (project.todos.length === 0) {
-        //     hideTodoInfo();
-        // }
         hideTodoInfo();
         renderTodos(projectIndex);
-    }   
+    }
 
     const renderProjects = () => {
         const projectsDiv = document.querySelector(".projects");
@@ -89,15 +109,15 @@ function ViewController() {
             divEl.textContent = project.title;
             divEl.classList.add("project");
             divEl.setAttribute("id", `${index}`);
-            divEl.addEventListener("click", function() { 
+            divEl.addEventListener("click", function () {
                 renderProject(index);
                 selectedProject(index);
-             });
+            });
             projectsDiv.appendChild(divEl)
             renderProject(index);
             selectedProject(index);
         })
-    } 
+    }
 
     const renderProject = (index) => {
         todoListEl.setAttribute("id", `${index}`);
@@ -116,7 +136,7 @@ function ViewController() {
             project.classList.remove("project-selected");
         })
         projects[index].classList.add("project-selected");
-        defaultToFirstTodo(projectsData[index].todos, index);
+        // defaultToFirstTodo(projectsData[index].todos, index);
     }
 
     const renderPriority = (todo, el) => {
@@ -137,6 +157,14 @@ function ViewController() {
         }
     }
 
+    const editProjectTitle = (e) => {
+        console.log("sssss")
+    }
+
+    // const editTodoTitle = () => {
+
+    // }
+
     function EventsController() {
         const addTodoEl = document.querySelector(".add-todo-btn");
         const projectsAddEl = document.querySelector("#projects-add");
@@ -156,7 +184,7 @@ function ViewController() {
             projectsTitleForm.reset()
             modal.close();
         }
-    
+
         const renderTodosHandler = (e) => {
             const addTodoInput = document.querySelector(".add-todo-input")
             const todoListEl = document.querySelector(".todo-list");
@@ -169,16 +197,10 @@ function ViewController() {
         }
 
         const deleteProjectHandler = (index) => {
-            console.log("TEST");
-            console.log(index)
-            //Get current project
             projects.deleteTodoList(index);
             projectLabel.placeholder = "";
             renderProjects();
             renderTodos(index);
-            //Is this project currently selected?
-            //IF SO DELETE
-            //RE RENDER ProJECTS
         }
 
         const updatePriorityHandler = (projectIndex, todoIndex, priority) => {
@@ -187,10 +209,7 @@ function ViewController() {
             renderTodos(projectIndex);
         }
 
-        // const clearProrityhandler = (projectIndex, todoIndex) => {
-        //     let currentProject = projects.getCurrentProject(projectIndex)
-        // }
-
+        projectLabel.addEventListener("change", (e) => editProjectTitle(e));
 
         projectDeleteBtn.addEventListener("click", (e) => deleteProjectHandler(e.target.id));
 
@@ -199,7 +218,7 @@ function ViewController() {
         cancelProjectDialogBox.addEventListener("click", (e) => modal.close());
 
         projectsTitleForm.addEventListener("submit", renderProjectsHandler)
-    
+
         addTodoEl.addEventListener("click", renderTodosHandler)
 
         urgentBtn.addEventListener("click", (e) => updatePriorityHandler(todoListEl.id, todoEl.id, "urgent"))
