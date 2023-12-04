@@ -26,7 +26,6 @@ function ViewController() {
             divEl.textContent = todo.title;
             renderPriority(todo, divEl);
             divEl.addEventListener("click", function (e) {
-                // displayTodoInfo(todoListEl.id, index);
                 renderTodoDisplay(todoListEl.id, index);
                 selectedTodo(index);
             })
@@ -36,24 +35,24 @@ function ViewController() {
         })
     }
 
-    // const defaultToFirstTodo = (todos, index) => {
-    //     const todoContainerEl = document.querySelector(".todo-container");
-    //     if (todos.length === 0) {
-    //         todoContainerEl.style.display = "none";
-    //     } else {
-    //         displayTodoInfo(index, 0);
-    //     }
-    // }
-
-    const displayTodoInfo = (projectIndex, todoIndex) => {
-        const todoTitleEl = document.querySelector(".todo-title-input");
-        const todoEl = document.querySelector(".todo")
-        todoEl.setAttribute("id", `${todoIndex}`);
-        todoContainerEl.style.display = "block";
-        let todos = projectsData[projectIndex].todos;
-        let todo = todos[todoIndex];
-        todoTitleEl.placeholder = todo.title;
+    const defaultToFirstTodo = (todos, index) => {
+        const todoContainerEl = document.querySelector(".todo-container");
+        if (todos.length === 0) {
+            todoContainerEl.style.display = "none";
+        } else {
+            renderTodoDisplay(index, 0);
+        }
     }
+
+    // const displayTodoInfo = (projectIndex, todoIndex) => {
+    //     const todoTitleEl = document.querySelector(".todo-title-input");
+    //     const todoEl = document.querySelector(".todo")
+    //     todoEl.setAttribute("id", `${todoIndex}`);
+    //     todoContainerEl.style.display = "block";
+    //     let todos = projectsData[projectIndex].todos;
+    //     let todo = todos[todoIndex];
+    //     todoTitleEl.placeholder = todo.title;
+    // }
 
     const renderTodoDisplay = (projectIndex, todoIndex) => {
         let todos = projectsData[projectIndex].todos;
@@ -136,7 +135,7 @@ function ViewController() {
             project.classList.remove("project-selected");
         })
         projects[index].classList.add("project-selected");
-        // defaultToFirstTodo(projectsData[index].todos, index);
+        defaultToFirstTodo(projectsData[index].todos, index);
     }
 
     const renderPriority = (todo, el) => {
