@@ -36,6 +36,7 @@ class TodoList {
     setDueDate(id, date) {
         id = parseInt(id);
         console.log(date);
+        date.slice(0, 10);
         let todo = this.todos.find((todo, index) => index === id);
         todo.dueDate = date;
         return this.todos;

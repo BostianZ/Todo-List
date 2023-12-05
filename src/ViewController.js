@@ -69,7 +69,8 @@ function ViewController() {
                 </div>
                 <div class="todo-date-wrapper">
                     <label for="dueDate" class="todo-date-label">Due date:</label>
-                    <input class="todo-date" type="date" id="due" name="dueDate"  value=${todo.dueDate}/>
+                    <input class="todo-date" type="date" id="due" name="dueDate" />
+                    <div>${todo.dueDate}</div>
                 </div>
                 <div class="notes">
                     <p>NOTES</p>
@@ -256,6 +257,15 @@ function ViewController() {
                 setTodoDateHandler(e, todoListEl.id, todoIndex);
             }
         })
+
+        // const nonRenderedEventHandling = (elMatch, el, handler, e, className) => {
+        //     const elMatch = e.target.matches(className);
+        //     const el = document.querySelector(className);
+        //     if (elMatch) {
+        //         let todoIndex = el.parentElement.parentElement.id;
+        //         handler(e, todoListEl.id, todoIndex)
+        //     }
+        // }   
 
     }
 
