@@ -34,7 +34,7 @@ function ViewController() {
                 selectedTodo(index);
             })
             renderPriority(todo, divEl);
-            renderTodoComplete(todo, divEl,completeTodoEl);
+            renderTodoComplete(todo, divEl, completeTodoEl);
             todoWrapperEl.appendChild(completeTodoEl);
             todoWrapperEl.appendChild(divEl);
             todoWrapperEl.appendChild(deleteTodoEl)
@@ -156,7 +156,6 @@ function ViewController() {
     }
 
     const renderTodoComplete = (todo, todoEl, radioEl) => {
-        const radioBtn = document.querySelector(".todo-complete-btn");
         if (todo.isComplete === true) {
             todoEl.classList.add("complete");
             radioEl.checked = true;
@@ -183,11 +182,10 @@ function ViewController() {
         const modal = document.querySelector("#dialog");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
 
-        const completeTodohandler = (e, projectIndex, todoIndex) => {
-            console.log(e.target.value);
+        const completeTodohandler = (projectIndex, todoIndex) => {
             let todoList = projectsData[projectIndex];
             todoList.completeTodo(todoIndex);
-            renderTodos(todoIndex);
+            renderTodos(projectIndex);
         }
 
         const setTodoDateHandler = (e, projectIndex, todoIndex) => {
@@ -266,10 +264,12 @@ function ViewController() {
 
         document.addEventListener("click", (e) => {
             const todoCompleteMatch = e.target.matches(".todo-complete-btn");
-            const todoCompleteBtn = document.querySelector(".todo-complete-btn");
+            const todoCompleteBtn = e.target;
             if (todoCompleteMatch) {
-                let todoIndex = todoCompleteBtn.parentElement.parentElement.id;
-                completeTodohandler(e, todoListEl.id, todoIndex);
+                let todoIndex = todoCompleteBtn.parentElement.id;
+               
+                console.log(todoIndex);
+                completeTodohandler(todoListEl.id, todoIndex);
             }
         })
 
