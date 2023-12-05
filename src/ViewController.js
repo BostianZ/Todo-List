@@ -69,7 +69,7 @@ function ViewController() {
                 </div>
                 <div class="todo-date-wrapper">
                     <label for="dueDate" class="todo-date-label">Due date:</label>
-                    <input class="todo-date" type="date" id="due" name="dueDate"  />
+                    <input class="todo-date" type="date" id="due" name="dueDate"  value=${todo.dueDate}/>
                 </div>
                 <div class="notes">
                     <p>NOTES</p>
@@ -165,6 +165,16 @@ function ViewController() {
         const modal = document.querySelector("#dialog");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
 
+        const setTodoDateHandler = (e, projectIndex, todoIndex) => {
+            console.log(e.target.value);
+            let date = e.target.value;
+            let todoList = projectsData[projectIndex];
+            // debugger;
+            console.log(todoList);
+            todoList.setDueDate(todoIndex, date)
+            renderTodoDisplay(projectIndex, todoIndex);
+        }
+
         const addTodoNotesHandler = (e, projectIndex, todoIndex) => {
             console.log(e.target.value)
             let val = e.target.value;
@@ -223,8 +233,8 @@ function ViewController() {
         document.addEventListener("click", (e) => {
             const priorityBtn = e.target.matches(".priority-btn");
             const btn = document.querySelector(".priority-btn");
-            let todoIndex = btn.parentElement.parentElement.id;
             if (priorityBtn) {
+                let todoIndex = btn.parentElement.parentElement.id;
                 updatePriorityHandler(todoListEl.id, todoIndex);
             }
         })
@@ -232,9 +242,18 @@ function ViewController() {
         document.addEventListener("focusout", (e) => {
             const todoNotesEl = e.target.matches(".todo-notes");
             const txtArea = document.querySelector(".todo-notes")
-            let todoIndex = txtArea.parentElement.parentElement.id;
             if (todoNotesEl) {
+                let todoIndex = txtArea.parentElement.parentElement.id;
                 addTodoNotesHandler(e, todoListEl.id, todoIndex);
+            }
+        })
+
+        document.addEventListener("focusout", (e) => {
+            const date = e.target.matches(".todo-date");
+            const dateEl = document.querySelector(".todo-date");
+            if (date) {
+                let todoIndex = dateEl.parentElement.parentElement.id;
+                setTodoDateHandler(e, todoListEl.id, todoIndex);
             }
         })
 
