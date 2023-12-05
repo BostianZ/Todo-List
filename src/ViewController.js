@@ -16,6 +16,11 @@ function ViewController() {
             let todoWrapperEl = document.createElement("div");
             let divEl = document.createElement("div");
             let deleteTodoEl = document.createElement("button");
+            let completeTodoEl = document.createElement("input");
+            divEl.classList.add("todo-item-text");
+            completeTodoEl.type = "radio";
+            completeTodoEl.classList.add("todo-complete-btn")
+            completeTodoEl.value = "isComplete";
             deleteTodoEl.textContent = "X";
             deleteTodoEl.setAttribute("id", `${index}`);
             deleteTodoEl.addEventListener("click", function (e) {
@@ -29,6 +34,8 @@ function ViewController() {
                 selectedTodo(index);
             })
             renderPriority(todo, divEl);
+            renderTodoComplete(todo, divEl,completeTodoEl);
+            todoWrapperEl.appendChild(completeTodoEl);
             todoWrapperEl.appendChild(divEl);
             todoWrapperEl.appendChild(deleteTodoEl)
             todoListEl.appendChild(todoWrapperEl);
@@ -148,6 +155,16 @@ function ViewController() {
        }
     }
 
+    const renderTodoComplete = (todo, todoEl, radioEl) => {
+        const radioBtn = document.querySelector(".todo-complete-btn");
+        if (todo.isComplete === true) {
+            todoEl.classList.add("complete");
+            radioEl.checked = true;
+        } else if (todo.isComplete === false) {
+            todoEl.classList.remove("complete");
+            radioEl.checked = false;
+        }
+    }
     
 
     // const editProjectTitle = () => {
@@ -165,6 +182,13 @@ function ViewController() {
         const projectsTitleInput = document.querySelector(".projects-title-input")
         const modal = document.querySelector("#dialog");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
+
+        const completeTodohandler = (e, projectIndex, todoIndex) => {
+            console.log(e.target.value);
+            let todoList = projectsData[projectIndex];
+            todoList.completeTodo(todoIndex);
+            renderTodos(todoIndex);
+        }
 
         const setTodoDateHandler = (e, projectIndex, todoIndex) => {
             console.log(e.target.value);
@@ -237,6 +261,15 @@ function ViewController() {
             if (priorityBtn) {
                 let todoIndex = btn.parentElement.parentElement.id;
                 updatePriorityHandler(todoListEl.id, todoIndex);
+            }
+        })
+
+        document.addEventListener("click", (e) => {
+            const todoCompleteMatch = e.target.matches(".todo-complete-btn");
+            const todoCompleteBtn = document.querySelector(".todo-complete-btn");
+            if (todoCompleteMatch) {
+                let todoIndex = todoCompleteBtn.parentElement.parentElement.id;
+                completeTodohandler(e, todoListEl.id, todoIndex);
             }
         })
 

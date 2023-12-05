@@ -142,6 +142,10 @@ body {
     align-items: center;
 }
 
+.complete {
+    text-decoration: line-through;
+}
+
 .user-wrapper {
     background-color: var(--main-color);
     display: flex;
@@ -215,7 +219,7 @@ body {
 
 .todo-item {
     display: grid;
-    grid-template-columns: 1fr 50px;
+    grid-template-columns: 20px 1fr 50px;
     padding: 12px 8px;
 }
 

@@ -50,6 +50,14 @@ class TodoList {
         return this.todos;
     }
 
+    completeTodo(id) {
+        id = parseInt(id);
+        let todo = this.todos.find((todo, index) => index === id);
+        todo.isComplete = !todo.isComplete;
+        console.log(todo);
+        return this.todos;
+    }
+
     getCurrentTodo(index) {
         return this.todos[index];
     }
