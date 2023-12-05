@@ -136,9 +136,10 @@ body {
 }
 
 .todo {
-    height: 60%;
+    height: 70%;
     display: grid;
-    grid-template-rows: 60px 60px 1fr;
+    grid-template-rows: 60px 60px 80px 1fr;
+    align-items: center;
 }
 
 .user-wrapper {
@@ -241,6 +242,10 @@ body {
     font-weight: 700;
 }
 
+.notes {
+    align-self: self-start;
+}
+
 .notes textarea {
     width: 100%;
     border: none;
@@ -261,19 +266,24 @@ body {
     letter-spacing: 1px;
 }
 
-.priority button {
-    margin-top: 24px;
-    border: none;
-    border-radius: 24px;
-    box-shadow: var(--main-box-shadow);
-    padding: 6px 12px;
-}
-
 .priority-selected {
     border: 1px solid black;
     background-color: white;
     color: black;
     font-weight: 700;
+}
+
+.priority-btn {
+    background-color: white;    
+    border: 1px solid gray;
+    color: gray;
+    border: none;
+    border-radius: 24px;
+    box-shadow: var(--main-box-shadow);
+    padding: 6px 12px;
+}
+.priority-true {
+    border-left: 4px solid #f9d21f;
 }
 
 ::backdrop {
@@ -318,12 +328,15 @@ dialog input {
     margin-top: 16px;
 }
 
-.priority-btn {
-    background-color: white;    
-    border: 1px solid gray;
-    color: gray;
+.todo-date {
+    margin-top: 8px;
+    display: block;
 }
-.priority-true {
-    border-left: 4px solid #f9d21f;
-}
+
+
+/* .priority-btn-true {
+    background-color: #f9d21f;
+    color: white;
+    font-weight: 700;
+} */
 

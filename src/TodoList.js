@@ -4,7 +4,6 @@ class TodoList {
     constructor(title) {
         this.title = title,
         this.todos = [];
-        this.id;
     }
 
     addTodo(...todo) {
@@ -37,6 +36,14 @@ class TodoList {
     setDueDate(id, date = new Date().toISOString()) {
         let todo = this.todos.find((todo, index) => index === id);
         todo.dueDate = date;
+        return this.todos;
+    }
+
+    addTodoNotes(id, val) {
+        id = parseInt(id);
+        let todo = this.todos.find((todo, index) => index === id);
+        console.log(todo);
+        todo.notes = val;
         return this.todos;
     }
 
