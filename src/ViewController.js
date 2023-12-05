@@ -28,6 +28,7 @@ function ViewController() {
                 renderTodoDisplay(todoListEl.id, index);
                 selectedTodo(index);
             })
+            renderPriority(todo, divEl);
             todoWrapperEl.appendChild(divEl);
             todoWrapperEl.appendChild(deleteTodoEl)
             todoListEl.appendChild(todoWrapperEl);
@@ -67,7 +68,7 @@ function ViewController() {
                     <button class="priority-btn">Priority</button>
                 </div>
                 <div>
-                    <label for="dueDate">Due date:</label>
+                    4<label for="dueDate">Due date:</label>
                     <input type="date" id="due" name="dueDate" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
                 </div>
                 <div class="notes">
@@ -139,7 +140,11 @@ function ViewController() {
     }
 
     const renderPriority = (todo, el) => {
-   
+       if (todo.priority === true) {
+        el.classList.add("priority-true")
+       } else if (todo.priority === false) {
+        el.classList.remove("priority-true")
+       }
     }
 
     
@@ -187,13 +192,6 @@ function ViewController() {
             renderProjects();
             renderTodos(index);
         }
-
-        // const updatePriorityHandler = (projectIndex, todoIndex, priority) => {
-        //     console.log("test");
-        //     // let currentProject = projects.getCurrentProject(projectIndex)
-        //     // currentProject.setTodoPriority(todoIndex, priority);
-        //     // renderTodos(projectIndex);
-        // }
 
         const updatePriorityHandler = (projectIndex, todoIndex) => {
             let currentProject = projects.getCurrentProject(projectIndex)

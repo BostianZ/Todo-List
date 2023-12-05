@@ -323,25 +323,7 @@ dialog input {
     border: 1px solid gray;
     color: gray;
 }
-
-.urgent,
-.important {
-    color: white;
-    font-weight: 700;
+.priority-true {
+    border-left: 4px solid #f9d21f;
 }
 
-.urgent {
-    background-color: rgba(255, 0, 0, 0.8);
-}
-
-.important {
-    background-color: rgb(226, 226, 19, 0.9);
-}
-
-.urgent-border {
-    border-right: 4px solid red;
-}
-
-.important-border {
-    border-right: 4px solid yellow;
-}
