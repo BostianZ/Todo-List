@@ -25,11 +25,12 @@ class TodoList {
         return this.todos;
     }
 
-    setTodoPriority(id, priority) {
+    setTodoPriority(id) {
         id = parseInt(id);
-        console.log(id, priority, this.todos);
         let todo = this.todos.find((todo, index) => index === id);
-        todo.priority = priority;
+        todo.priority = !todo.priority;
+        console.log(todo.priority);
+
         return this.todos;
     }
 

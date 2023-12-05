@@ -7,6 +7,7 @@ function ViewController() {
     const todoContainerEl = document.querySelector(".todo-container");
     const projectDeleteBtn = document.querySelector(".todo-list-delete-btn");
     const projectLabel = document.querySelector(".todo-list-title-input");
+    const priorityBtn = document.querySelector(".priority-btn");
 
     const renderTodos = (projectIndex) => {
         todoListEl.innerHTML = ""
@@ -20,11 +21,9 @@ function ViewController() {
             deleteTodoEl.addEventListener("click", function (e) {
                 deleteTodohandler(e, projectIndex);
             })
-            // divEl.setAttribute("id", `${index}`);
             todoWrapperEl.setAttribute("id", `${index}`);
             todoWrapperEl.classList.add("todo-item");
             divEl.textContent = todo.title;
-            renderPriority(todo, divEl);
             divEl.addEventListener("click", function (e) {
                 renderTodoDisplay(todoListEl.id, index);
                 selectedTodo(index);
@@ -53,7 +52,7 @@ function ViewController() {
     //     let todo = todos[todoIndex];
     //     todoTitleEl.placeholder = todo.title;
     // }
-
+    
     const renderTodoDisplay = (projectIndex, todoIndex) => {
         let todos = projectsData[projectIndex].todos;
         let todo = todos[todoIndex];
@@ -64,14 +63,16 @@ function ViewController() {
                 <div class="todo-title">
                     <input type="text" placeholder=${todo.title} class="todo-title-input" />
                 </div>
-                <div class="priority" id=${todo.priority}>
-                    <button class="clear-priority">Clear</button>
-                    <button id="urgent" class="priority-btn">Urgent</button>
-                    <button id="important" class="priority-btn">Important</button>
+                <div class="priority">
+                    <button class="priority-btn">Priority</button>
+                </div>
+                <div>
+                    <label for="dueDate">Due date:</label>
+                    <input type="date" id="due" name="dueDate" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
                 </div>
                 <div class="notes">
                     <p>NOTES</p>
-                    <textarea rows="5">${todo.notes}</textarea>
+                    <textarea rows="5" placeholder="Insert your notes here...">${todo.notes}</textarea>
                 </div>
             </div> `
     }
@@ -90,7 +91,6 @@ function ViewController() {
 
     const deleteTodohandler = (e, projectIndex) => {
         //Project index and todo index
-        console.log(e.target.id);
         let todoIndex = e.target.id
         let project = projectsData[projectIndex];
         console.log(projectIndex);
@@ -139,26 +139,14 @@ function ViewController() {
     }
 
     const renderPriority = (todo, el) => {
-        const urgentBtn = document.querySelector("#urgent");
-        const importantBtn = document.querySelector("#important");
-        if (todo.priority === "urgent") {
-            el.classList.add("urgent-border");
-            urgentBtn.classList.add("urgent")
-            if (importantBtn.classList.contains("important")) {
-                importantBtn.classList.remove("important");
-            }
-        } else if (todo.priority === "important") {
-            el.classList.add("important-border");
-            importantBtn.classList.add("important")
-            if (urgentBtn.classList.contains("urgent")) {
-                urgentBtn.classList.remove("urgent");
-            }
-        }
+   
     }
 
-    const editProjectTitle = (e) => {
-        console.log("sssss")
-    }
+    
+
+    // const editProjectTitle = () => {
+    //     console.log("sssss");
+    // }
 
     // const editTodoTitle = () => {
 
@@ -171,10 +159,8 @@ function ViewController() {
         const projectsTitleInput = document.querySelector(".projects-title-input")
         const modal = document.querySelector("#dialog");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
-        const urgentBtn = document.querySelector("#urgent");
-        const importantBtn = document.querySelector("#important");
         const todoEl = document.querySelector(".todo");
-        const clearPriorityEl = document.querySelector("clear-priority");
+        // const clearPriorityEl = document.querySelector("clear-priority");
 
         const renderProjectsHandler = (e) => {
             e.preventDefault();
@@ -202,9 +188,17 @@ function ViewController() {
             renderTodos(index);
         }
 
-        const updatePriorityHandler = (projectIndex, todoIndex, priority) => {
+        // const updatePriorityHandler = (projectIndex, todoIndex, priority) => {
+        //     console.log("test");
+        //     // let currentProject = projects.getCurrentProject(projectIndex)
+        //     // currentProject.setTodoPriority(todoIndex, priority);
+        //     // renderTodos(projectIndex);
+        // }
+
+        const updatePriorityHandler = (projectIndex, todoIndex) => {
             let currentProject = projects.getCurrentProject(projectIndex)
-            currentProject.setTodoPriority(todoIndex, priority);
+            console.log(currentProject);
+            currentProject.setTodoPriority(todoIndex);
             renderTodos(projectIndex);
         }
 
@@ -220,8 +214,14 @@ function ViewController() {
 
         addTodoEl.addEventListener("click", renderTodosHandler)
 
-        urgentBtn.addEventListener("click", (e) => updatePriorityHandler(todoListEl.id, todoEl.id, "urgent"))
-        importantBtn.addEventListener("click", (e) => updatePriorityHandler(todoListEl.id, todoEl.id, "important"))
+        document.addEventListener("click", (e) => {
+            const priorityBtn = e.target.matches(".priority-btn");
+            const btn = document.querySelector(".priority-btn");
+            if (priorityBtn) {
+                updatePriorityHandler(todoListEl.id, btn.parentElement.parentElement.id);
+            }
+        })
+
     }
 
     EventsController();
