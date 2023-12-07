@@ -164,15 +164,6 @@ function ViewController() {
             radioEl.checked = false;
         }
     }
-    
-
-    // const editProjectTitle = () => {
-    //     console.log("sssss");
-    // }
-
-    // const editTodoTitle = () => {
-
-    // }
 
     function EventsController() {
         const addTodoEl = document.querySelector(".add-todo-btn");
