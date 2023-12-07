@@ -18,9 +18,10 @@ class TodoList {
         return newTodoList;
     }
 
-    editTodo(id, title) {
+    editTodo(id, val) {
+        id = parseInt(id);
         let todo = this.todos.find((todo, index) => index === id);
-        todo.title = title;
+        todo.title = val;
         return this.todos;
     }
 

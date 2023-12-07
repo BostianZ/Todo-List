@@ -182,6 +182,14 @@ function ViewController() {
         const modal = document.querySelector("#dialog");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
 
+        const editTodoHandler = (e, projectIndex, todoIndex) => {
+            let val = e.target.value
+            let todoList = projectsData[projectIndex];
+            todoList.editTodo(todoIndex, val);
+            renderTodos(projectIndex);
+            renderTodoDisplay(projectIndex, todoIndex)
+        }   
+
         const completeTodohandler = (projectIndex, todoIndex) => {
             let todoList = projectsData[projectIndex];
             todoList.completeTodo(todoIndex);
@@ -288,6 +296,15 @@ function ViewController() {
             if (date) {
                 let todoIndex = dateEl.parentElement.parentElement.id;
                 setTodoDateHandler(e, todoListEl.id, todoIndex);
+            }
+        })
+
+        document.addEventListener("focusout", (e) => {
+            const todo = e.target.matches(".todo-title-input");
+            const todoTitleEl = document.querySelector(".todo-title-input");
+            if (todo) {
+                let todoIndex = todoTitleEl.parentElement.parentElement.id;
+                editTodoHandler(e, todoListEl.id, todoIndex);
             }
         })
 
