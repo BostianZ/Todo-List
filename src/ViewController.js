@@ -173,6 +173,14 @@ function ViewController() {
         const modal = document.querySelector("#dialog");
         const cancelProjectDialogBox = document.querySelector(".project-form-cancel-btn");
 
+        const editProjectTitle = (e, projectIndex) => {
+            let val = e.target.value
+            let project = projectsData[projectIndex];
+            console.log(project);
+            project.editProject(projectIndex, val);
+            renderProjects()
+        }  
+
         const editTodoHandler = (e, projectIndex, todoIndex) => {
             let val = e.target.value
             let todoList = projectsData[projectIndex];
@@ -240,8 +248,6 @@ function ViewController() {
             renderTodos(projectIndex);
         }
 
-        projectLabel.addEventListener("change", (e) => editProjectTitle(e));
-
         projectDeleteBtn.addEventListener("click", (e) => deleteProjectHandler(e.target.id));
 
         projectsAddEl.addEventListener("click", (e) => modal.showModal());
@@ -296,6 +302,13 @@ function ViewController() {
             if (todo) {
                 let todoIndex = todoTitleEl.parentElement.parentElement.id;
                 editTodoHandler(e, todoListEl.id, todoIndex);
+            }
+        })
+
+        document.addEventListener("focusout", (e) => {
+            const todolist = e.target.matches(".todo-list-title-input");
+            if (todolist) {
+                editProjectTitle(e, todoListEl.id);
             }
         })
 

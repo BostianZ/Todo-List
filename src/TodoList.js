@@ -25,6 +25,11 @@ class TodoList {
         return this.todos;
     }
 
+    editTodoList(val) {
+        id = parseInt(id);
+        this.title = val;
+    }
+
     setTodoPriority(id) {
         id = parseInt(id);
         let todo = this.todos.find((todo, index) => index === id);
