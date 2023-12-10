@@ -64,6 +64,10 @@ class TodoList {
         return this.todos;
     }
 
+    editTodoListTitle(val) {
+       this.title = val;
+    }
+
     getCurrentTodo(index) {
         return this.todos[index];
     }

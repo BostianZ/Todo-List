@@ -175,9 +175,9 @@ function ViewController() {
 
         const editProjectTitle = (e, projectIndex) => {
             let val = e.target.value
-            let project = projectsData[projectIndex];
-            console.log(project);
-            project.editProject(projectIndex, val);
+            let todoList = projectsData[projectIndex];
+            console.log(todoList);
+            todoList.editTodoListTitle(val);
             renderProjects()
         }  
 
