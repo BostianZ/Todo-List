@@ -312,6 +312,11 @@ function ViewController() {
             }
         })
 
+        document.addEventListener("DOMContentLoaded", (e) => {
+            projects.addTodoList("My First List");
+            renderProjects();
+        })
+
         // const nonRenderedEventHandling = (elMatch, el, handler, e, className) => {
         //     const elMatch = e.target.matches(className);
         //     const el = document.querySelector(className);
