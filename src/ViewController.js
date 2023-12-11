@@ -51,16 +51,6 @@ function ViewController() {
         }
     }
 
-    // const displayTodoInfo = (projectIndex, todoIndex) => {
-    //     const todoTitleEl = document.querySelector(".todo-title-input");
-    //     const todoEl = document.querySelector(".todo")
-    //     todoEl.setAttribute("id", `${todoIndex}`);
-    //     todoContainerEl.style.display = "block";
-    //     let todos = projectsData[projectIndex].todos;
-    //     let todo = todos[todoIndex];
-    //     todoTitleEl.placeholder = todo.title;
-    // }
-    
     const renderTodoDisplay = (projectIndex, todoIndex) => {
         let todos = projectsData[projectIndex].todos;
         let todo = todos[todoIndex];
@@ -93,13 +83,12 @@ function ViewController() {
     const selectedTodo = (index) => {
         const todos = document.querySelectorAll(".todo-item");
         todos.forEach(todo => {
-            todo.classList.remove("project-selected");
+            todo.classList.remove("todo-selected");
         })
-        todos[index].classList.add("project-selected");
+        todos[index].classList.add("todo-selected");
     }
 
     const deleteTodohandler = (e, projectIndex) => {
-        //Project index and todo index
         let todoIndex = e.target.id
         let project = projectsData[projectIndex];
         console.log(projectIndex);
@@ -112,7 +101,7 @@ function ViewController() {
     const renderProjects = () => {
         const projectsDiv = document.querySelector(".projects");
         projectsDiv.innerHTML = "";
-        let projects = projectsData.forEach((project, index) => {
+        projectsData.forEach((project, index) => {
             let divEl = document.createElement("div");
             divEl.textContent = project.title;
             divEl.classList.add("project");
@@ -148,11 +137,11 @@ function ViewController() {
     }
 
     const renderPriority = (todo, el) => {
-       if (todo.priority === true) {
-        el.classList.add("priority-true");
-       } else if (todo.priority === false) {
-        el.classList.remove("priority-true");
-       }
+        if (todo.priority === true) {
+            el.classList.add("priority-true");
+        } else if (todo.priority === false) {
+            el.classList.remove("priority-true");
+        }
     }
 
     const renderTodoComplete = (todo, todoEl, radioEl) => {
@@ -179,7 +168,7 @@ function ViewController() {
             console.log(todoList);
             todoList.editTodoListTitle(val);
             renderProjects()
-        }  
+        }
 
         const editTodoHandler = (e, projectIndex, todoIndex) => {
             let val = e.target.value
@@ -187,7 +176,7 @@ function ViewController() {
             todoList.editTodo(todoIndex, val);
             renderTodos(projectIndex);
             renderTodoDisplay(projectIndex, todoIndex)
-        }   
+        }
 
         const completeTodohandler = (projectIndex, todoIndex) => {
             let todoList = projectsData[projectIndex];
@@ -199,7 +188,6 @@ function ViewController() {
             console.log(e.target.value);
             let date = e.target.value;
             let todoList = projectsData[projectIndex];
-            // debugger;
             console.log(todoList);
             todoList.setDueDate(todoIndex, date)
             renderTodoDisplay(projectIndex, todoIndex);
@@ -209,7 +197,6 @@ function ViewController() {
             console.log(e.target.value)
             let val = e.target.value;
             let todoList = projectsData[projectIndex];
-            // debugger;
             console.log(todoList);
             todoList.addTodoNotes(todoIndex, val)
             renderTodoDisplay(projectIndex, todoIndex);
@@ -272,7 +259,7 @@ function ViewController() {
             const todoCompleteBtn = e.target;
             if (todoCompleteMatch) {
                 let todoIndex = todoCompleteBtn.parentElement.id;
-               
+
                 console.log(todoIndex);
                 completeTodohandler(todoListEl.id, todoIndex);
             }
@@ -311,20 +298,6 @@ function ViewController() {
                 editProjectTitle(e, todoListEl.id);
             }
         })
-
-        document.addEventListener("DOMContentLoaded", (e) => {
-            projects.addTodoList("My First List");
-            renderProjects();
-        })
-
-        // const nonRenderedEventHandling = (elMatch, el, handler, e, className) => {
-        //     const elMatch = e.target.matches(className);
-        //     const el = document.querySelector(className);
-        //     if (elMatch) {
-        //         let todoIndex = el.parentElement.parentElement.id;
-        //         handler(e, todoListEl.id, todoIndex)
-        //     }
-        // }   
 
     }
 

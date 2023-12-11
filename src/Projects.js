@@ -16,6 +16,13 @@ class Projects {
         return newProjectList;
     }
 
+    editProject(id, val) {
+        id = parseInt(id);
+        let project = this.projects.find((proj, index) => index === id);
+        project.title = val;
+        return this.projects;
+    }
+
     getCurrentProject(index) {
         return this.projects[index];
     }
